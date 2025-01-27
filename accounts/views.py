@@ -1,3 +1,5 @@
+from django.contrib.auth import views as auth_views
+from .forms import EmailOrUsernameLoginForm
 from urllib import request
 from django.shortcuts import redirect, render
 from .forms import SignupForm,UserForm,ProfileForm
@@ -46,3 +48,9 @@ def profile_edit(request):
         profleform = ProfileForm(instance=profile)
     
     return render(request, 'accounts/profile_edit.html', {'userform': userform, 'profleform': profleform})
+
+
+class LoginView(auth_views.LoginView):
+    authentication_form = EmailOrUsernameLoginForm
+    template_name = 'registration/login.html'  # Your login template
+    
